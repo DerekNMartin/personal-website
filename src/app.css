@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 
 @theme {
+  --color-primary: #FF5F00;
+  --color-metal-1: #EBEBEB;
+  --color-metal-2: #E3E5E6;
+
   --ease-in-sine: cubic-bezier(0.12, 0, 0.39, 0);
   --ease-out-sine: cubic-bezier(0.61, 1, 0.88, 1);
   --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);

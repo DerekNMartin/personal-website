@@ -41,13 +41,13 @@
 </div>
 
 <style>
-  @reference "../../app.css";
+  @reference 'main-styles';
 
   .dial-wrapper {
     @apply relative h-10 w-10;
   }
   .dial {
-    @apply absolute z-[1] h-full w-full cursor-pointer rounded-full bg-[#ebebeb];
+    @apply bg-metal-1 absolute z-[1] h-full w-full cursor-pointer rounded-full;
   }
   .dial-highlight {
     @apply absolute right-[1px] bottom-[3px] h-full w-full rounded-full bg-white;
@@ -59,6 +59,6 @@
     @apply ease-in-out-back transition-transform duration-300;
   }
   .dial-mask {
-    mask: url('dial_star.svg') center no-repeat;
+    mask: url('$lib/assets/dial_star.svg') center no-repeat;
   }
 </style>
