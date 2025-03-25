@@ -3,10 +3,17 @@
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import { usePower } from '$lib/shared/power.svelte';
   import Header from '$lib/components/Header.svelte';
+  import type { Snapshot } from './$types';
 
   let { children } = $props();
   const power = usePower();
   const screenStyle = $derived(power.isOn ? 'on' : 'off');
+
+  // keep the power on!
+  export const snapshot: Snapshot<boolean> = {
+    capture: () => power.isOn,
+    restore: (value: boolean) => (power.isOn = value)
+  };
 </script>
 
 <main class="flex h-full flex-col">
@@ -29,7 +36,7 @@
   @reference 'main-styles';
 
   .on {
-    animation: 3000ms linear 0ms normal forwards 1 running on;
+    animation: 2000ms linear normal forwards 1 running on;
   }
   .off {
     animation: 750ms cubic-bezier(0.23, 1, 0.32, 1) 0ms normal forwards 1 running off;

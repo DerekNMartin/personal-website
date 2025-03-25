@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-  <title>{menu.currentPageItem.title} | Derek Martin</title>
+  <title>{menu.currentPageItem?.title} | Derek Martin</title>
 </svelte:head>
 <header class="flex items-center justify-between">
   <Logo></Logo>
