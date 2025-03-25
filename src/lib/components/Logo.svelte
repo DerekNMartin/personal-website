@@ -21,7 +21,7 @@
     }
     100% {
       filter: blur(1px);
-      opacity: 0.9;
+      opacity: 0.8;
     }
   }
   @keyframes glitch {

@@ -24,9 +24,10 @@
   @reference 'main-styles';
 
   .button-toggle {
-    @apply ease-in-out-back bg-metal-1 h-16 w-16 cursor-pointer rounded-full text-sm font-bold text-neutral-300 transition-all duration-300;
+    @apply ease-in-out-back bg-metal-1 h-16 w-16 cursor-pointer rounded-full font-bold text-neutral-300 transition-all duration-300;
   }
   .button-toggle--on {
+    filter: blur(0.6px);
     box-shadow:
       inset 3px 4px 3px #00000030,
       5px 6px 2px #00000000,
@@ -92,6 +93,7 @@
     }
     100% {
       color: theme(color.primary);
+      filter: blur(0.5px);
       text-shadow: 0 0 18px theme(color-primary);
     }
   }

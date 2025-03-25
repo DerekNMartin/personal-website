@@ -3,9 +3,15 @@
     currentNotch?: number;
     notches?: number;
     direction?: 'left' | 'right';
+    notchColour?: string;
   }
 
-  let { currentNotch = $bindable(0), notches = 10, direction = 'right' }: DialProps = $props();
+  let {
+    currentNotch = $bindable(0),
+    notches = 10,
+    direction = 'right',
+    notchColour = 'bg-neutral-700'
+  }: DialProps = $props();
 
   // Keep track of total rotations to be able to rotate continuously
   let totalRotations = $state(currentNotch);
@@ -33,7 +39,10 @@
     aria-label="Dial"
   >
     <span
-      class="absolute top-1.5 right-1/2 block h-3 w-[3px] translate-x-1/2 rounded-full bg-neutral-700"
+      class={[
+        'absolute top-1.5 right-1/2 block h-3 w-[3px] translate-x-1/2 rounded-full',
+        notchColour
+      ]}
     ></span>
   </button>
   <span class="dial-shadow dial-transition dial-mask" style:rotate={rotateStyle}></span>
