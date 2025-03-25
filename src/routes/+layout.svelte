@@ -5,8 +5,8 @@
   import Header from '$lib/components/Header.svelte';
 
   let { children } = $props();
-  const { isPowerOn } = usePower();
-  const screenStyle = $derived(isPowerOn.value ? 'on' : 'off');
+  const power = usePower();
+  const screenStyle = $derived(power.isOn ? 'on' : 'off');
 </script>
 
 <main class="flex h-full flex-col">

@@ -4,14 +4,18 @@
   import ToggleButton from './ToggleButton.svelte';
   import { useMenu } from '$lib/shared/menu.svelte';
 
-  const { isPowerOn } = usePower();
+  const power = usePower();
   const menu = useMenu();
 
   let upDial = $state(0);
   let downDial = $state(0);
 
   function handleToggle(isOn: boolean) {
-    isPowerOn.value = isOn;
+    power.isOn = isOn;
+  }
+
+  function handlePageDial(dialNotch: number) {
+    menu.navigateToIndex(dialNotch);
   }
 </script>
 
@@ -20,7 +24,8 @@
     <label class="dial-label">
       Page
       <Dial
-        bind:currentNotch={menu.selectedIndex.value}
+        currentNotch={menu.pageIndex}
+        onRotate={handlePageDial}
         notches={menu.total}
         notchColour="bg-primary"
       />
@@ -34,7 +39,7 @@
       <Dial bind:currentNotch={downDial} />
     </label>
   </div>
-  <ToggleButton isActive={isPowerOn.value} toggle={handleToggle} />
+  <ToggleButton isActive={power.isOn} toggle={handleToggle} />
 </aside>
 
 <style>

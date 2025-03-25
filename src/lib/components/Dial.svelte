@@ -4,13 +4,15 @@
     notches?: number;
     direction?: 'left' | 'right';
     notchColour?: string;
+    onRotate?: (currentNotch: number) => void;
   }
 
   let {
     currentNotch = $bindable(0),
     notches = 10,
     direction = 'right',
-    notchColour = 'bg-neutral-700'
+    notchColour = 'bg-neutral-700',
+    onRotate
   }: DialProps = $props();
 
   // Keep track of total rotations to be able to rotate continuously
@@ -28,6 +30,8 @@
     totalRotations += dirNum;
     if (currentNotch >= notches) currentNotch = 0;
     if (currentNotch < 0) currentNotch = notches - 1;
+
+    if (onRotate) onRotate(currentNotch);
   }
 </script>
 

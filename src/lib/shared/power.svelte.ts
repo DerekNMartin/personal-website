@@ -1,4 +1,11 @@
-const isPowerOn = $state({ value: false });
+let isPowerOn = $state(false);
 export function usePower() {
-  return { isPowerOn };
+  return {
+    get isOn() {
+      return isPowerOn;
+    },
+    set isOn(isOn: boolean) {
+      isPowerOn = isOn;
+    }
+  };
 }
