@@ -1,11 +1,14 @@
 <script lang="ts">
   import '../app.css';
-  import ControlPanel from '$lib/components/ControlPanel.svelte';
-  import { usePower } from '$lib/shared/power.svelte';
-  import Header from '$lib/components/Header.svelte';
   import type { Snapshot } from './$types';
 
+  import { usePower } from '$lib/shared/power.svelte';
+
+  import ControlPanel from '$lib/components/ControlPanel.svelte';
+  import Header from '$lib/components/Header.svelte';
+
   let { children } = $props();
+
   const power = usePower();
   const screenStyle = $derived(power.isOn ? 'on' : 'off');
 
@@ -17,10 +20,12 @@
 </script>
 
 <main class="flex h-full flex-col">
-  <section class="bg-metal-2 flex-1 border-b-2 border-b-neutral-800 p-6">
+  <section class="bg-metal-2 flex-1 border-b-2 border-b-neutral-800 p-6 sm:p-10">
     <div class="relative h-full overflow-hidden rounded-4xl border-8 border-black">
       <div class="crt">
-        <div class={['flex h-full w-full flex-col gap-8 bg-amber-100 px-4 py-6', screenStyle]}>
+        <div
+          class={['flex h-full w-full flex-col gap-8 bg-amber-100 px-4 py-6 sm:p-12', screenStyle]}
+        >
           <Header></Header>
           <div>
             {@render children()}

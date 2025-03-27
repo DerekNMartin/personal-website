@@ -1,8 +1,11 @@
 <script lang="ts">
   import { usePower } from '$lib/shared/power.svelte';
+  import { useMenu } from '$lib/shared/menu.svelte';
+
+  import Speaker from './Speaker.svelte';
+
   import Dial from './Dial.svelte';
   import ToggleButton from './ToggleButton.svelte';
-  import { useMenu } from '$lib/shared/menu.svelte';
 
   const power = usePower();
   const menu = useMenu();
@@ -19,17 +22,18 @@
   }
 </script>
 
-<aside class="bg-metal-2 flex items-center justify-between border-t-2 border-white p-6">
+<aside class="bg-metal-2 w- flex items-center justify-between border-t-2 border-white p-6">
+  <Speaker width="256" />
+  <label class="dial-label">
+    Page
+    <Dial
+      currentNotch={menu.pageIndex}
+      onRotate={handlePageDial}
+      notches={menu.total}
+      notchColour="bg-primary"
+    />
+  </label>
   <div class="flex gap-4">
-    <label class="dial-label">
-      Page
-      <Dial
-        currentNotch={menu.pageIndex}
-        onRotate={handlePageDial}
-        notches={menu.total}
-        notchColour="bg-primary"
-      />
-    </label>
     <label class="dial-label">
       Up
       <Dial direction="left" bind:currentNotch={upDial} />
