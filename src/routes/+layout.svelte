@@ -24,7 +24,10 @@
     <div class="relative h-full overflow-hidden rounded-4xl border-8 border-black">
       <div class="crt">
         <div
-          class={['flex h-full w-full flex-col gap-8 bg-amber-100 px-4 py-6 sm:p-12', screenStyle]}
+          class={[
+            'flex h-full w-full flex-col gap-8 overflow-auto bg-amber-100 px-4 py-6 sm:p-12',
+            screenStyle
+          ]}
         >
           <Header></Header>
           <div>

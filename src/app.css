@@ -2,8 +2,10 @@
 
 @theme {
   --default-font-family: "Roboto Mono", monospace, sans-serif;
+  --font-heading: "Alfa Slab One", serif;
 
   --color-primary: #FF5F00;
+  --color-secondary: #002379;
   --color-metal-1: #EBEBEB;
   --color-metal-2: #E3E5E6;
 

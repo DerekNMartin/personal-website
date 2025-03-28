@@ -7,10 +7,10 @@ const menuItems = [
   { id: '/projects', title: 'Projects' }
 ];
 
-const pageIndex = $derived(menuItems.findIndex((item) => item.id === page.route.id));
-const currentPageItem = $derived(menuItems[pageIndex]);
-
 export function useMenu() {
+  const pageIndex = $derived(menuItems.findIndex((item) => item.id === page?.route?.id));
+  const currentPageItem = $derived(menuItems[pageIndex]);
+
   function navigateToIndex(index: number) {
     const menuItem = menuItems[index];
     if (menuItem) goto(menuItem.id);

@@ -1,9 +1,9 @@
 <script lang="ts">
-  const { width = '320', height = '86', lineWidth = '4', spaceWidth = '10' } = $props();
+  const { width = '320', height = '86', lineWidth = '4', spaceWidth = '10', ...props } = $props();
 </script>
 
 <svg
-  class="speaker-panel"
+  class={['speaker-panel', props.class]}
   {width}
   {height}
   viewBox={`0 0 ${width} ${height}`}

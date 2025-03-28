@@ -45,19 +45,19 @@
   .button-toggle__text--on {
     animation:
       text-flicker-in-glow 500ms linear both,
-      pulse ease-in-out 1.5s alternate infinite;
+      pulse ease-in-out 500ms alternate infinite;
   }
 
   @keyframes pulse {
     0% {
       filter: blur(0.5px);
       opacity: 0.8;
-      text-shadow: 0 0 15px theme(color-primary);
+      text-shadow: 0 0 10px theme(color-primary);
     }
     100% {
       filter: blur(0.5px);
       opacity: 1;
-      text-shadow: 0 0 20px theme(color-primary);
+      text-shadow: 0 0 15px theme(color-primary);
     }
   }
 
