@@ -1,5 +1,5 @@
-import type { PageLoad } from './$types';
-import { PUBLIC_GITHUB_TOKEN } from '$env/static/public';
+import type { PageServerLoad } from './$types';
+import { GITHUB_TOKEN } from '$env/static/private';
 
 interface Language {
   id: string;
@@ -37,12 +37,12 @@ interface Response {
 
 export const prerender = true;
 
-export const load: PageLoad = async ({ fetch }) => {
+export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${PUBLIC_GITHUB_TOKEN}`
+      Authorization: `Bearer ${GITHUB_TOKEN}`
     },
     body: JSON.stringify({
       query: `
@@ -69,5 +69,6 @@ query {
     })
   });
   const { data } = (await res.json()) as Response;
+  setHeaders({ 'cache-control': 'private, max-age=3600' });
   return data;
 };
