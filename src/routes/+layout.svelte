@@ -1,8 +1,8 @@
 <script lang="ts">
   import '../app.css';
-  import type { Snapshot } from './$types';
 
   import { usePower } from '$lib/shared/power.svelte';
+  import { useScroll } from '$lib/shared/scroll.svelte';
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
@@ -11,12 +11,9 @@
 
   const power = usePower();
   const screenStyle = $derived(power.isOn ? 'on' : 'off');
+  export const { snapshot } = power;
 
-  // keep the power on!
-  export const snapshot: Snapshot<boolean> = {
-    capture: () => power.isOn,
-    restore: (value: boolean) => (power.isOn = value)
-  };
+  const scroll = useScroll();
 </script>
 
 <main class="flex h-full flex-col">
@@ -24,6 +21,7 @@
     <div class="relative h-full overflow-hidden rounded-4xl border-8 border-black">
       <div class="crt">
         <div
+          bind:this={scroll.element}
           class={[
             'flex h-full w-full flex-col gap-8 overflow-auto bg-amber-100 px-4 py-6 sm:p-12',
             screenStyle

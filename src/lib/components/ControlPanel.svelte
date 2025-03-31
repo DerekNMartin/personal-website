@@ -1,6 +1,7 @@
 <script lang="ts">
   import { usePower } from '$lib/shared/power.svelte';
   import { useMenu } from '$lib/shared/menu.svelte';
+  import { useScroll } from '$lib/shared/scroll.svelte';
 
   import Speaker from './Speaker.svelte';
 
@@ -9,17 +10,27 @@
   import MenuDisplay from './MenuDisplay.svelte';
 
   const power = usePower();
-  const menu = useMenu();
-
-  let upDial = $state(0);
-  let downDial = $state(0);
-
   function handleToggle(isOn: boolean) {
     power.isOn = isOn;
   }
 
+  const scroll = useScroll();
+  let upDial: Dial;
+  let downDial: Dial;
+  let scrollDial = $state(0);
+  scroll.totalChunks = 5;
+  function handleScrollDial(dialNotch: number) {
+    scroll.currentChunk = dialNotch;
+  }
+  function resetDials() {
+    upDial.resetDial();
+    downDial.resetDial();
+  }
+
+  const menu = useMenu();
   function handlePageDial(dialNotch: number) {
     menu.navigateToIndex(dialNotch);
+    resetDials();
   }
 </script>
 
@@ -42,11 +53,22 @@
   <div class="flex gap-4">
     <label class="dial-label">
       Up
-      <Dial direction="left" bind:currentNotch={upDial} />
+      <Dial
+        bind:this={upDial}
+        direction="left"
+        bind:currentNotch={scrollDial}
+        onRotate={handleScrollDial}
+        notches={scroll.totalChunks}
+      />
     </label>
     <label class="dial-label">
       Down
-      <Dial bind:currentNotch={downDial} />
+      <Dial
+        bind:this={downDial}
+        bind:currentNotch={scrollDial}
+        onRotate={handleScrollDial}
+        notches={scroll.totalChunks}
+      />
     </label>
   </div>
   <ToggleButton isActive={power.isOn} toggle={handleToggle} />

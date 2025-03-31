@@ -33,6 +33,11 @@
 
     if (onRotate) onRotate(currentNotch);
   }
+
+  export function resetDial() {
+    currentNotch = 0;
+    totalRotations = 0;
+  }
 </script>
 
 <div class="dial-wrapper">
