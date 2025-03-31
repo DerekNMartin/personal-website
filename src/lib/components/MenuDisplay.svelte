@@ -6,16 +6,26 @@
 
   const menu = useMenu();
 
-  const markerTransform = $derived.by(() => {
+  function setTranslate() {
     if (menuElement && markerElement) {
       const menuBox = menuElement.getBoundingClientRect();
       const menuChildren = menuElement.getElementsByTagName('li');
       const selectedItem = menuChildren[menu.pageIndex].getBoundingClientRect();
       const markerWidth = markerElement.getBoundingClientRect().width;
       const amount = selectedItem.x - menuBox.x + (selectedItem.width / 2 - markerWidth / 2);
-      return `translateX(${amount}px)`;
+      markerElement.style.transform = `translateX(${amount}px)`;
     }
-  });
+  }
+
+  $effect(() => setTranslate());
+
+  let debounceTimer: number;
+  function handleResize() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      setTranslate();
+    }, 100);
+  }
 </script>
 
 <!-- Display this version on mobile? -->
@@ -30,13 +40,13 @@
   {/each}
 </menu> -->
 
+<svelte:window onresize={handleResize} />
 <menu
   bind:this={menuElement}
   class="menu relative flex h-fit w-full justify-around gap-4 rounded-md bg-amber-50 px-4 py-2 text-sm"
 >
   <span
     bind:this={markerElement}
-    style:transform={markerTransform}
     class="ease-out-back marker bg-primary absolute top-0 left-0 h-full w-[2px] transition-transform duration-300"
   ></span>
   {#each menu.menuItems as { title }}
