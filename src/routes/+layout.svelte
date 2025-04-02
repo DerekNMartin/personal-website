@@ -23,12 +23,13 @@
         <div
           bind:this={scroll.element}
           class={[
-            'flex h-full w-full flex-col gap-8 overflow-auto bg-amber-100 px-4 py-6 sm:p-12',
+            'flex h-full w-full flex-col gap-4 overflow-y-auto bg-amber-100 px-4 py-6 sm:gap-8 sm:p-12',
             screenStyle
           ]}
         >
           <Header></Header>
-          <div>
+          <!-- TODO: Breaks dials -->
+          <div class="max-h-[calc(100%+3.5rem+2rem)] flex-1 overflow-hidden">
             {@render children()}
           </div>
         </div>

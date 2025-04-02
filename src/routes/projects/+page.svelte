@@ -3,7 +3,7 @@
   const githubRepos = $derived(data.user.pinnedItems.nodes);
 </script>
 
-<section class="flex h-full flex-col gap-4 overflow-y-auto">
+<section class="flex h-full flex-col gap-4">
   {#each githubRepos as item}
     <a href={item.url} target="_blank">
       <article
