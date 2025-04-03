@@ -1,8 +1,10 @@
 <script lang="ts">
   import '../app.css';
 
+  import { page } from '$app/state';
   import { usePower } from '$lib/shared/power.svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
+  import { blur } from 'svelte/transition';
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
@@ -14,6 +16,8 @@
   export const { snapshot } = power;
 
   const scroll = useScroll();
+
+  const pageId = $derived(page.route.id);
 </script>
 
 <main class="flex h-full flex-col">
@@ -28,10 +32,12 @@
           ]}
         >
           <Header></Header>
-          <!-- TODO: Breaks dials -->
-          <div class="max-h-[calc(100%+3.5rem+2rem)] flex-1 overflow-hidden">
-            {@render children()}
-          </div>
+          {#key pageId}
+            <!-- TODO: overflow breaks dials -->
+            <div in:blur class="max-h-[calc(100%+3.5rem+2rem)] flex-1 overflow-hidden">
+              {@render children()}
+            </div>
+          {/key}
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ const menuItems = [
 ];
 
 export function useMenu() {
-  const pageIndex = $derived(menuItems.findIndex((item) => item.id === page?.route?.id));
+  const pageIndex = $derived(menuItems.findIndex((item) => item.id === page.route.id));
   const currentPageItem = $derived(menuItems[pageIndex]);
 
   function navigateToIndex(index: number) {
