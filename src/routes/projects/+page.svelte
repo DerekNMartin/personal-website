@@ -11,9 +11,9 @@
 </script>
 
 <section class="flex h-full flex-col gap-4">
-  {#each githubRepos as item, index (item.id)}
-    {#if visible}
-      <a in:fade={{ delay: index * 100 }} href={item.url} target="_blank">
+  {#if visible}
+    {#each githubRepos as item, index (item.id)}
+      <a in:fade|global={{ delay: index * 100 }} href={item.url} target="_blank">
         <article
           class="border-secondary flex flex-col gap-2 rounded-tr-lg rounded-bl-lg border-2 p-4"
         >
@@ -31,6 +31,6 @@
           </div>
         </article>
       </a>
-    {/if}
-  {/each}
+    {/each}
+  {/if}
 </section>
