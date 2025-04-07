@@ -18,6 +18,13 @@
   const scroll = useScroll();
 
   const pageId = $derived(page.route.id);
+
+  // TODO: fixes dials but yucky, able to do with only CSS?
+  const contentStyle = $derived.by(() => {
+    const classList = ['flex-1'];
+    if (page.route.id === 'about') classList.push('max-h-[calc(100%+3.5rem+2rem)] overflow-hidden');
+    return classList;
+  });
 </script>
 
 <main class="flex h-full flex-col">
@@ -33,8 +40,7 @@
         >
           <Header></Header>
           {#key pageId}
-            <!-- TODO: overflow breaks dials -->
-            <div in:blur class="max-h-[calc(100%+3.5rem+2rem)] flex-1 overflow-hidden">
+            <div in:blur class={contentStyle}>
               {@render children()}
             </div>
           {/key}

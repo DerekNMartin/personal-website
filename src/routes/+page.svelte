@@ -1,6 +1,19 @@
 <script lang="ts">
-  let message = $state('Hello!')
+  import ClockWidget from '$lib/components/ClockWidget.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<div class="masonry-container">
+  <ClockWidget class="masonry-item" />
+</div>
+
+<style>
+  @reference 'main-styles';
+  .masonry-container {
+    @apply columns-5 gap-5;
+    column-width: 300px;
+  }
+
+  :global(.masonry-item) {
+    @apply bg-secondary mb-5 min-h-28 w-full break-inside-avoid-column rounded-3xl rounded-tl-none rounded-br-none p-6 text-white;
+  }
+</style>
