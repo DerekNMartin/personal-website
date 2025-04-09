@@ -34,7 +34,9 @@
         <div class="group flex gap-2 pr-2">
           {#each books.results as { book }}
             <a href={book.url} target="_blank" title={book.title}>
-              <article class="z-20 aspect-[1/1.5] min-h-32 hover:scale-110 hover:-rotate-2">
+              <article
+                class="z-20 aspect-[1/1.5] min-h-32 transition-transform hover:scale-110 hover:-rotate-2"
+              >
                 <img
                   class="h-full w-full rounded-md rounded-tl-none rounded-bl-none"
                   alt={book.title}

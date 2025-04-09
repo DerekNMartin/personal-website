@@ -1,11 +1,13 @@
 <script lang="ts">
   import ClockWidget from '$lib/components/ClockWidget.svelte';
   import BooksWidget from '$lib/components/BooksWidget.svelte';
+  import MoviesWidget from '$lib/components/MoviesWidget.svelte';
 </script>
 
 <div class="masonry-container">
   <ClockWidget class="masonry-item" />
   <BooksWidget class="masonry-item" />
+  <MoviesWidget class="masonry-item" />
 </div>
 
 <style>
