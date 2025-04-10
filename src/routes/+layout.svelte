@@ -4,7 +4,7 @@
   import { page } from '$app/state';
   import { usePower } from '$lib/shared/power.svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
-  import { blur } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
@@ -30,6 +30,9 @@
 <main class="flex h-full flex-col">
   <section class="bg-metal-2 flex-1 border-b-2 border-b-neutral-800 p-6 sm:p-10">
     <div class="relative h-full overflow-hidden rounded-4xl border-8 border-black">
+      {#if power.isOn}
+        <div transition:fade class="noise-overlay"></div>
+      {/if}
       <div class="crt">
         <div
           bind:this={scroll.element}
@@ -40,7 +43,7 @@
         >
           <Header></Header>
           {#key pageId}
-            <div in:blur class={contentStyle}>
+            <div class={['page-animation', contentStyle]}>
               {@render children()}
             </div>
           {/key}
@@ -53,6 +56,15 @@
 
 <style>
   @reference 'main-styles';
+
+  .page-animation {
+    animation: flicker 50ms 2;
+  }
+
+  .noise-overlay {
+    @apply pointer-events-none absolute inset-0 z-50 opacity-10 mix-blend-soft-light;
+    background-image: url('$lib/assets/noise.gif');
+  }
 
   .on {
     animation: 2000ms linear normal forwards 1 running on;
