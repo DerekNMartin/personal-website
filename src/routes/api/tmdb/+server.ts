@@ -23,7 +23,7 @@ export const GET: RequestHandler = async ({ url }) => {
       });
 
       const data = await res.json();
-      return { ...((data.results[0] as TmdbMovie) ?? []), error: data.status_message };
+      return { ...((data.results[0] as TmdbMovie) ?? []), error: data.status_message as string };
     })
   );
 

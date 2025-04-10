@@ -1,17 +1,23 @@
 <script lang="ts">
+  import type { PageProps } from './$types';
   import ClockWidget from '$lib/components/ClockWidget.svelte';
   import BooksWidget from '$lib/components/BooksWidget.svelte';
   import MoviesWidget from '$lib/components/MoviesWidget.svelte';
+  import StravaWidget from '$lib/components/StravaWidget.svelte';
+
+  const { data }: PageProps = $props();
 </script>
 
 <div class="masonry-container">
   <ClockWidget class="masonry-item" />
   <BooksWidget class="masonry-item" />
   <MoviesWidget class="masonry-item" />
+  <StravaWidget strava={data.strava} class="masonry-item" />
 </div>
 
 <style>
   @reference 'main-styles';
+  /* TODO: https://codesandbox.io/p/sandbox/vibrant-darkness-ppp92p?file=%2Findex.html%3A149%2C65 */
   .masonry-container {
     @apply columns-5 gap-5;
     column-width: 300px;

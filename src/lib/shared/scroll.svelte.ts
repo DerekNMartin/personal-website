@@ -4,6 +4,7 @@ let currentChunk: number = $state(0);
 
 export function useScroll() {
   function scroll() {
+    // TODO: Dynamically find the scroll element on the page instead?
     if (!scrollElement) return;
     const scrollHeight = scrollElement?.getBoundingClientRect().height;
     const scrollAmount = scrollHeight / totalChunks;
