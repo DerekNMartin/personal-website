@@ -10,8 +10,8 @@
 
 <div class="masonry-container">
   <ClockWidget class="masonry-item" />
-  <BooksWidget class="masonry-item" />
-  <MoviesWidget class="masonry-item" />
+  <BooksWidget books={data.books} class="masonry-item" />
+  <MoviesWidget movies={data.movies} class="masonry-item" />
   <StravaWidget strava={data.strava} class="masonry-item" />
 </div>
 
