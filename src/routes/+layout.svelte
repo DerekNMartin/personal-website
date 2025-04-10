@@ -4,7 +4,7 @@
   import { page } from '$app/state';
   import { usePower } from '$lib/shared/power.svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
-  import { fade } from 'svelte/transition';
+  import { fade, blur } from 'svelte/transition';
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
@@ -43,7 +43,7 @@
         >
           <Header></Header>
           {#key pageId}
-            <div class={['page-animation', contentStyle]}>
+            <div in:blur class={contentStyle}>
               {@render children()}
             </div>
           {/key}
@@ -56,10 +56,6 @@
 
 <style>
   @reference 'main-styles';
-
-  .page-animation {
-    animation: flicker 50ms 2;
-  }
 
   .noise-overlay {
     @apply pointer-events-none absolute inset-0 z-50 opacity-10 mix-blend-soft-light;
