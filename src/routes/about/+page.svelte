@@ -69,7 +69,7 @@
     }
     if (result.type === 'error') {
       messages.push({
-        content: `Sorry, the bot is shy today. 🫣 If you have any questions for Derek, don't hesitate to email Derek at derek.n.martin@gmail.com!`,
+        content: `Sorry, the bot is shy today. 🫣 If you have any questions for Derek, feel free to email Derek at derek.n.martin@gmail.com!`,
         role: 'system',
         time: Date.now()
       });
@@ -83,7 +83,7 @@
 <div class="flex h-full flex-col justify-between gap-4 text-sm sm:text-base">
   <section
     bind:this={messageViewport}
-    class="flex flex-1 flex-col gap-2 overflow-y-auto rounded-md border-2 p-4"
+    class="flex flex-1 flex-col gap-2 overflow-y-auto border-2 p-4"
   >
     {#each messages as message (message.time)}
       <p
@@ -125,14 +125,14 @@
         type="text"
         required
         disabled={isLoading}
-        class="focus:outline-primary w-full rounded-md border-2 px-2 py-4 pr-16 sm:p-4 sm:pr-20"
+        class="focus:outline-primary w-full border-2 px-2 py-4 pr-16 sm:p-4 sm:pr-20"
         placeholder="What would you like to know about Derek?"
       />
       <button
-        class="bg-secondary hover:bg-primary absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-sm px-2 py-1 text-sm font-bold text-white uppercase transition-colors"
+        class="bg-secondary hover:bg-primary hover:text-secondary absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-sm rounded-tl-none rounded-br-none px-2 py-1 text-sm font-bold text-white uppercase transition-colors"
         type="submit"
       >
-        Send
+        [Send]
       </button>
     </form>
   </section>
