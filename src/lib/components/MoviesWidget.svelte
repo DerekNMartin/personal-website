@@ -63,4 +63,5 @@
       <p class="text-primary">{error.message}</p>
     {/await}
   </div>
+  <a class="link" href="https://boxd.it/LLcS" target="_blank">Letterboxd</a>
 </article>

@@ -48,6 +48,7 @@
         </div>
       {/each}
     </div>
+    <a class="link" href="https://fable.co/derek-martin-138781558181" target="_blank">Fable</a>
   {:catch error}
     <p class="text-primary">{error.message}</p>
   {/await}

@@ -12,7 +12,7 @@
 <header class="flex items-center justify-between">
   <Logo></Logo>
   {#key menu.currentPageItem?.title}
-    <h1 in:fade={{ duration: 200 }} class="page-title text-primary font-heading text-2xl">
+    <h1 in:fade={{ duration: 200 }} class="page-title text-primary font-heading text-3xl">
       {menu.currentPageItem?.title}
     </h1>
   {/key}
