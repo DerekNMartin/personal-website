@@ -17,14 +17,15 @@
   };
 
   const tweenDistance = new Tween(0, tweenOptions);
-  const distance = $derived(Math.floor(strava.all_run_totals.distance / 1000)); // Meters -> Kilometers
+  const distance = $derived(Math.floor(strava?.all_run_totals?.distance / 1000) || 0); // Meters -> Kilometers
 
   const tweenTime = new Tween(0, tweenOptions);
-  const time = $derived(Math.floor(strava.all_run_totals.moving_time / 60)); // Seconds -> Minutes
+  const time = $derived(Math.floor(strava?.all_run_totals?.moving_time / 60) || 0); // Seconds -> Minutes
 
   const tweenCount = new Tween(0, tweenOptions);
-  const count = $derived(strava.all_run_totals.count);
+  const count = $derived(strava?.all_run_totals?.count || 0);
 
+  // TODO: onPowerOn as well?
   onMount(() => {
     tweenDistance.set(distance);
     tweenTime.set(time);
@@ -33,9 +34,9 @@
 
   const stats = $derived.by(() => {
     return [
-      { label: 'count', value: tweenCount.current },
+      { label: 'kilometers', value: tweenDistance.current },
       { label: 'minutes', value: tweenTime.current },
-      { label: 'kilometers', value: tweenDistance.current }
+      { label: 'count', value: tweenCount.current }
     ];
   });
 </script>
@@ -46,7 +47,7 @@
     {#each stats as stat}
       <div class="flex flex-col gap-1">
         <p class="text-xs uppercase">[{stat.label}]</p>
-        <p class="text-2xl">{stat.value}</p>
+        <p class="text-2xl font-bold">{stat.value}</p>
       </div>
     {/each}
     <a class="link" href="https://www.strava.com/athletes/136908952" target="_blank">Strava</a>

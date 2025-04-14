@@ -24,14 +24,12 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
   async function fetchStrava() {
     const response = await fetch('/api/strava');
     const result = await response.json();
-    if (!response.ok) throw new Error('Unable to fetch Strava data');
     return result;
   }
 
   async function fetchBooks() {
     const response = await fetch('/api/fable');
     const result: FableBooksResponse = await response.json();
-    if (!response.ok) throw new Error('Unable to fetch books');
     return result;
   }
 
@@ -40,14 +38,14 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
     MOVIES.forEach((title) => params.append('query', title));
     const response = await fetch(`/api/tmdb?${params.toString()}`);
     const result: TmdbResponse = await response.json();
-    if (!response.ok) throw new Error('Unable to fetch Letterboxd data');
     return result;
   }
 
-  const strava = await fetchStrava();
-  const books = await fetchBooks();
-  const movies = await fetchMovies();
-
-  setHeaders({ 'cache-control': 'private, max-age=3600' });
-  return { strava, books, movies };
+  try {
+    const [books, movies, strava] = await Promise.all([fetchBooks(), fetchMovies(), fetchStrava()]);
+    // setHeaders({ 'cache-control': 'private, max-age=3600' });
+    return { strava, movies, books };
+  } catch (error) {
+    throw new Error(error?.message || 'Page fetch error');
+  }
 };
