@@ -10,7 +10,7 @@ const MOVIES = [
   'Memento',
   'The Dark Knight',
   'Good Will Hunting',
-  'Ex Machina',
+  'Ex Machina - 2015',
   'Rear Window',
   'Mad Max: Fury Road',
   'Arrival',
@@ -43,7 +43,7 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 
   try {
     const [books, movies, strava] = await Promise.all([fetchBooks(), fetchMovies(), fetchStrava()]);
-    // setHeaders({ 'cache-control': 'private, max-age=3600' });
+    setHeaders({ 'cache-control': 'private, max-age=3600' });
     return { strava, movies, books };
   } catch (error) {
     throw new Error(error?.message || 'Page fetch error');

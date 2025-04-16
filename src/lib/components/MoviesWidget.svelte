@@ -1,21 +1,31 @@
 <script lang="ts">
-  const { movies, ...props } = $props();
+  import type { TmdbMovie } from '$lib/types/tmdb';
+  import type { ClassValue } from 'svelte/elements';
 
-  function movieImgUrl(path: string | null) {
+  interface MoviesWidgetProps {
+    movies: TmdbMovie[];
+    class?: ClassValue;
+  }
+
+  const { movies, ...props }: MoviesWidgetProps = $props();
+
+  function movieImgUrl(path: string | null, title?: string) {
     if (!path) return;
     return `https://image.tmdb.org/t/p/w200${path}`;
   }
 </script>
 
-<article class={['flex flex-col gap-4', props.class]}>
+<article class={['flex flex-col gap-4', props?.class]}>
   Favourite Movies
   <div class="grid grid-cols-3 gap-2 md:grid-cols-5">
     {#each movies as movie}
-      <article class="aspect-[1/1.5] transition-transform hover:scale-125 hover:-rotate-2">
+      <article
+        class="ease-out-expo aspect-[1/1.5] overflow-hidden rounded-md transition-transform hover:scale-125 hover:-rotate-2"
+      >
         <img
-          class="h-full w-full rounded-md"
+          class="h-full w-full rounded-md bg-neutral-800"
           alt={movie.title}
-          src={movieImgUrl(movie.poster_path)}
+          src={movieImgUrl(movie.poster_path, movie.title)}
         />
       </article>
     {/each}

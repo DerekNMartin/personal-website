@@ -19,7 +19,7 @@
   @reference 'main-styles';
   /* TODO: https://codesandbox.io/p/sandbox/vibrant-darkness-ppp92p?file=%2Findex.html%3A149%2C65 */
   .masonry-container {
-    @apply columns-5 gap-5;
+    @apply columns-3 gap-5;
     column-width: 300px;
   }
 
