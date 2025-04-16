@@ -1,40 +1,38 @@
 <script lang="ts">
-  import type { Snapshot } from './$types';
-  import type { ActionResult } from '@sveltejs/kit';
-  import { enhance } from '$app/forms';
-  import { scale } from 'svelte/transition';
+  import { Chat } from '@ai-sdk/svelte';
+  import { scale, fade } from 'svelte/transition';
   import { expoOut } from 'svelte/easing';
   import { onMount, tick } from 'svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
 
-  interface Message {
-    time: number;
-    content?: string;
-    role: 'user' | 'assistant' | 'system';
-  }
+  const errorMessage = `Sorry, the bot is shy today. 🫣 If you have any questions for Derek, feel free to email Derek at derek.n.martin@gmail.com!`;
 
+  const chat = new Chat({
+    onError: (error) => {
+      console.error('An error occurred:', error);
+      chat.messages.push({
+        id: Date.now().toString(),
+        content: errorMessage,
+        role: 'system',
+        parts: [
+          {
+            type: 'text',
+            text: errorMessage
+          }
+        ]
+      });
+    }
+  });
   const scroll = useScroll();
 
   let messageViewport: HTMLElement | undefined = $state();
-  let formElement: HTMLFormElement | undefined = $state();
   let isLoading = $state(false);
 
-  let messages: Message[] = $state([]);
-  export const snapshot: Snapshot<Message[]> = {
-    capture: () => messages,
-    restore: (value) => (messages = value)
-  };
-
   onMount(() => {
-    tick().then(() => {
-      if (formElement && !messages.length) {
-        const inputElement = formElement.getElementsByTagName('input').item(0);
-        if (inputElement) {
-          inputElement.value = 'Hello!';
-          formElement.requestSubmit();
-        }
-      }
-    });
+    if (chat && !chat.messages.length) {
+      chat.input = 'Hello!';
+      chat.handleSubmit();
+    }
   });
 
   $effect.pre(() => {
@@ -42,41 +40,13 @@
   });
 
   async function handleScroll() {
-    if (!messageViewport || !messages.length) return;
+    if (!messageViewport || !chat.messages.length) return;
     const shouldScroll =
       messageViewport.offsetHeight + messageViewport.scrollTop > messageViewport.scrollHeight - 100;
     if (shouldScroll) {
       await tick();
       messageViewport?.scrollTo({ top: messageViewport.scrollHeight, behavior: 'smooth' });
     }
-  }
-
-  function handleAddMessage(formData: FormData, formElement: HTMLFormElement) {
-    isLoading = true;
-    messages.push({
-      time: Date.now(),
-      content: formData.get('user-input')?.toString(),
-      role: 'user'
-    });
-    formElement.reset();
-    formData.append('messages', JSON.stringify(messages));
-  }
-
-  async function handleFormResult(result: ActionResult, formElement: HTMLFormElement) {
-    isLoading = false;
-    if (result.type === 'success' && result.data) {
-      messages.push(result.data.message);
-    }
-    if (result.type === 'error') {
-      messages.push({
-        content: `Sorry, the bot is shy today. 🫣 If you have any questions for Derek, feel free to email Derek at derek.n.martin@gmail.com!`,
-        role: 'system',
-        time: Date.now()
-      });
-    }
-    await tick();
-    const inputElement = formElement.elements.namedItem('user-input') as HTMLInputElement;
-    inputElement.focus();
   }
 </script>
 
@@ -85,42 +55,35 @@
     bind:this={messageViewport}
     class="flex flex-1 flex-col gap-2 overflow-y-auto border-2 p-4"
   >
-    {#each messages as message (message.time)}
-      <p
+    {#each chat.messages as message (message.id)}
+      <div
         transition:scale={{ duration: 250, start: 0.6, easing: expoOut }}
         class={[
-          'w-fit rounded-lg bg-neutral-200 px-4 py-2 text-white sm:max-w-1/2',
+          'rounded-lg bg-neutral-200 px-4 py-2 text-white sm:max-w-1/2',
+          ...((!message.content && ['flex w-20 items-center justify-center']) || []),
           message.role === 'user'
             ? 'bg-primary self-end rounded-tr-none rounded-bl-none'
             : 'bg-secondary self-start rounded-tl-none rounded-br-none'
         ]}
       >
-        {message.content}
-      </p>
-    {/each}
-    {#if isLoading}
-      <div
-        in:scale={{ duration: 150, start: 0.6, easing: expoOut, delay: 250 }}
-        class={[
-          'bg-secondary flex w-20 max-w-1/2 items-center justify-center self-start rounded-lg rounded-tl-none rounded-br-none p-4 text-white'
-        ]}
-      >
-        <div class="loader"></div>
+        {#if message.content}
+          <div in:fade>
+            {#each message.parts as part, partIndex (partIndex)}
+              {#if part.type === 'text'}
+                <div>{part.text}</div>
+              {/if}
+            {/each}
+          </div>
+        {:else}
+          <div in:fade class="loader"></div>
+        {/if}
       </div>
-    {/if}
+    {/each}
   </section>
   <section>
-    <form
-      bind:this={formElement}
-      method="POST"
-      onsubmit={() => false}
-      use:enhance={({ formData, formElement }) => {
-        handleAddMessage(formData, formElement);
-        return async ({ result }) => handleFormResult(result, formElement);
-      }}
-      class="relative flex"
-    >
+    <form onsubmit={chat.handleSubmit} class="relative flex">
       <input
+        bind:value={chat.input}
         name="user-input"
         type="text"
         required
