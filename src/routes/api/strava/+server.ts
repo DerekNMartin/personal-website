@@ -5,7 +5,8 @@ import {
   STRAVA_REFRESH_TOKEN
 } from '$env/static/private';
 import type { RequestHandler } from '@sveltejs/kit';
-import { readTokens, writeTokens } from '$lib/server/stravaTokenStore';
+import { REDIS_URL } from '$env/static/private';
+import { createClient } from 'redis';
 
 export interface TokenResponse {
   token_type: string;
@@ -14,6 +15,11 @@ export interface TokenResponse {
   expires_in: number;
   refresh_token: string;
 }
+
+const REDIS_ACCESS_TOKEN_KEY = 'access_token';
+const REDIS_REFRESH_TOKEN_KEY = 'refresh_token';
+const REDIS_EXPIRE_TOKEN_KEY = 'expires_at';
+const redis = await createClient({ url: REDIS_URL }).connect();
 
 const stravaBaseUrl = new URL('https://www.strava.com/api/v3');
 
@@ -29,21 +35,40 @@ async function createRefreshToken(NEW_REFRESH_TOKEN?: string) {
   return data;
 }
 
-export const GET: RequestHandler = async () => {
-  let { access_token, refresh_token, expires_at } = await readTokens();
+async function getToken() {
+  const [accessToken, refreshToken, expiresAtToken] = await Promise.all([
+    redis.get(REDIS_ACCESS_TOKEN_KEY),
+    redis.get(REDIS_REFRESH_TOKEN_KEY),
+    redis.get(REDIS_EXPIRE_TOKEN_KEY)
+  ]);
+  return { accessToken, refreshToken, expiresAtToken };
+}
+
+async function setToken(access_token: string, refresh_token: string, expires_at: number) {
+  await Promise.all([
+    redis.set(REDIS_ACCESS_TOKEN_KEY, access_token),
+    redis.set(REDIS_REFRESH_TOKEN_KEY, refresh_token),
+    redis.set(REDIS_EXPIRE_TOKEN_KEY, expires_at)
+  ]);
+}
+
+async function checkTokenExpiration() {
   const now = Math.floor(Date.now() / 1000);
-  if (expires_at < now) {
-    const token = await createRefreshToken(refresh_token);
-    access_token = token.access_token;
-    refresh_token = token.refresh_token;
-    expires_at = token.expires_at;
-
-    await writeTokens({ access_token, refresh_token, expires_at });
+  const { expiresAtToken } = await getToken();
+  if (expiresAtToken < now) {
+    const { refreshToken } = await getToken();
+    const token = await createRefreshToken(refreshToken);
+    await setToken(token.access_token, token.refresh_token, token.expires_at);
   }
+}
 
+export const GET: RequestHandler = async () => {
+  await checkTokenExpiration();
+
+  const { accessToken } = await getToken();
   const url = new URL(`${stravaBaseUrl}/athletes/${STRAVA_ATHLETE_ID}/stats`);
   const res = await fetch(url.href, {
-    headers: { Authorization: `Bearer ${access_token}` }
+    headers: { Authorization: `Bearer ${accessToken}` }
   });
   const data = await res.json();
 
