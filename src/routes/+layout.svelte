@@ -1,15 +1,20 @@
 <script lang="ts">
   import '../app.css';
 
+  import { injectAnalytics } from '@vercel/analytics/sveltekit';
+  import { dev } from '$app/environment';
   import { page } from '$app/state';
+  import { fade, blur } from 'svelte/transition';
+
   import { usePower } from '$lib/shared/power.svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
-  import { fade, blur } from 'svelte/transition';
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
 
   let { children } = $props();
+
+  injectAnalytics({ mode: dev ? 'development' : 'production' });
 
   const power = usePower();
   const screenStyle = $derived(power.isOn ? 'on' : 'off');

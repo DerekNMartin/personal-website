@@ -45,6 +45,7 @@
 	},
 	"dependencies": {
 		"@huggingface/inference": "^3.6.2",
+		"@vercel/analytics": "^1.5.0",
 		"redis": "^4.7.0"
 	}
 }
