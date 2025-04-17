@@ -22,7 +22,8 @@
   // TODO: fixes dials but yucky, able to do with only CSS?
   const contentStyle = $derived.by(() => {
     const classList = ['flex-1'];
-    if (page.route.id === 'about') classList.push('max-h-[calc(100%+3.5rem+2rem)] overflow-hidden');
+    if (page.route.id === '/about')
+      classList.push('max-h-[calc(100%+3.5rem+2rem)] overflow-hidden');
     return classList;
   });
 </script>

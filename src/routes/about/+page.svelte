@@ -34,7 +34,7 @@
     }
   });
 
-  $effect.pre(() => {
+  $effect(() => {
     handleScroll();
   });
 
@@ -43,8 +43,10 @@
     const shouldScroll =
       messageViewport.offsetHeight + messageViewport.scrollTop > messageViewport.scrollHeight - 100;
     if (shouldScroll) {
-      await tick();
-      messageViewport?.scrollTo({ top: messageViewport.scrollHeight, behavior: 'smooth' });
+      // wait for animation
+      setTimeout(() => {
+        messageViewport?.scrollTo({ top: messageViewport.scrollHeight, behavior: 'smooth' });
+      }, 300);
     }
   }
 </script>
