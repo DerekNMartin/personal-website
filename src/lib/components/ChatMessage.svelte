@@ -26,7 +26,7 @@
       <div class="loader"></div>
     </div>
   {:else}
-    <div in:fade>
+    <div in:fade={{ duration: 200 }}>
       {#each message.parts as part, partIndex (partIndex)}
         {#if part.type === 'text'}
           <div>{part.text}</div>

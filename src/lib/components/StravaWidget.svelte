@@ -50,7 +50,7 @@
 
 <article class={['flex flex-col gap-4', props.class]}>
   Running
-  <section class="grid grid-cols-3 gap-4">
+  <section class="grid gap-4 sm:grid-cols-3">
     {#each stats as stat}
       <div class="flex flex-col gap-1">
         <p class="text-xs uppercase">[{stat.label}]</p>

@@ -39,14 +39,11 @@
   });
 
   async function handleScroll() {
-    if (!messageViewport || !chat.messages.length) return;
+    if (!messageViewport || chat.status === 'submitted') return;
     const shouldScroll =
       messageViewport.offsetHeight + messageViewport.scrollTop > messageViewport.scrollHeight - 100;
     if (shouldScroll) {
-      // wait for animation
-      setTimeout(() => {
-        messageViewport?.scrollTo({ top: messageViewport.scrollHeight, behavior: 'smooth' });
-      }, 300);
+      messageViewport?.scrollTo({ top: messageViewport.scrollHeight, behavior: 'smooth' });
     }
   }
 </script>
