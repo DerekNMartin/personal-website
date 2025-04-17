@@ -1,10 +1,10 @@
 import SystemContext from '$lib/config/systemContext.md?raw';
 import { streamText } from 'ai';
-import { createXai } from '@ai-sdk/xai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 
-import { XAI_API_KEY } from '$env/static/private';
+import { GEMINI_API_KEY } from '$env/static/private';
 
-const xai = createXai({ apiKey: XAI_API_KEY });
+const aiModel = createGoogleGenerativeAI({ apiKey: GEMINI_API_KEY });
 
 // For Debugging
 // function errorHandler(error: unknown) {
@@ -18,9 +18,10 @@ export async function POST({ request }) {
   const { messages } = await request.json();
 
   const result = streamText({
-    model: xai('grok-3-mini'),
+    model: aiModel('gemini-2.0-flash-lite'),
     system: SystemContext,
     messages
   });
+
   return result.toDataStreamResponse();
 }

@@ -15,6 +15,9 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
     devDependencies:
+      '@ai-sdk/google':
+        specifier: ^1.2.11
+        version: 1.2.11(zod@3.24.2)
       '@ai-sdk/svelte':
         specifier: ^2.1.9
         version: 2.1.9(svelte@5.23.2)(zod@3.24.2)
@@ -83,6 +86,12 @@ importers:
         version: 6.2.2(jiti@2.4.2)(lightningcss@1.29.2)
 
 packages:
+
+  '@ai-sdk/google@1.2.11':
+    resolution: {integrity: sha512-gjGcxKcRri/Jbkujs9nVwP4qOW5GI4rYQ6vQ17uLAvGMo3qnwr26Q2KUqUWuVHQYtboXVSrxC/Kb6sm3hE5WUQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
 
   '@ai-sdk/openai-compatible@0.2.11':
     resolution: {integrity: sha512-56U0uNCcFTygA4h6R/uREv8r5sKA3/pGkpIAnMOpRzs5wiARlTYakWW3LZgxg6D4Gpeswo4gwNJczB7nM0K1Qg==}
@@ -1892,6 +1901,12 @@ packages:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
+
+  '@ai-sdk/google@1.2.11(zod@3.24.2)':
+    dependencies:
+      '@ai-sdk/provider': 1.1.3
+      '@ai-sdk/provider-utils': 2.2.7(zod@3.24.2)
+      zod: 3.24.2
 
   '@ai-sdk/openai-compatible@0.2.11(zod@3.24.2)':
     dependencies:

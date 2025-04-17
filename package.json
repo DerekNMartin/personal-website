@@ -14,6 +14,7 @@
 		"lint": "prettier --check . && eslint ."
 	},
 	"devDependencies": {
+		"@ai-sdk/google": "^1.2.11",
 		"@ai-sdk/svelte": "^2.1.9",
 		"@ai-sdk/xai": "^1.2.13",
 		"@eslint/compat": "^1.2.5",
