@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import type { TmdbResponse } from '$lib/types/tmdb';
+import type { TmdbMovie } from '$lib/types/tmdb';
 import type { FableBooksResponse } from '$lib/types/fable';
 
 const MOVIES = [
@@ -37,7 +37,7 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
     const params = new URLSearchParams();
     MOVIES.forEach((title) => params.append('query', title));
     const response = await fetch(`/api/tmdb?${params.toString()}`);
-    const result: TmdbResponse = await response.json();
+    const result: TmdbMovie[] = await response.json();
     return result;
   }
 

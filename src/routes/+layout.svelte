@@ -34,10 +34,11 @@
 </script>
 
 <main class="flex h-full flex-col">
-  <section class="bg-metal-2 flex-1 border-b-2 border-b-neutral-800 p-6 sm:p-10">
+  <section class="bg-metal-2 box flex-1 border-b-2 border-b-neutral-800 p-6 sm:p-10">
     <div class="relative h-full overflow-hidden rounded-4xl border-8 border-black">
       {#if power.isOn}
         <div transition:fade class="noise-overlay"></div>
+        <div class="refresh"></div>
       {/if}
       <div class="crt">
         <div
@@ -66,6 +67,17 @@
   .noise-overlay {
     @apply pointer-events-none absolute inset-0 z-50 opacity-10 mix-blend-soft-light;
     background-image: url('$lib/assets/noise.gif');
+  }
+
+  .refresh {
+    @apply absolute bottom-0 left-0 z-10 h-16 w-full opacity-10;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(255, 255, 255, 0.4) 10%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    animation: refresh 10s linear infinite;
   }
 
   .on {
@@ -144,6 +156,16 @@
     }
     100% {
       transform: scale(0, 0);
+    }
+  }
+
+  @keyframes refresh {
+    0%,
+    70% {
+      bottom: 100%;
+    }
+    100% {
+      bottom: 0px;
     }
   }
 </style>
