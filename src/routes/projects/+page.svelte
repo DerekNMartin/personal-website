@@ -13,18 +13,24 @@
 <section class="flex h-full flex-col gap-4">
   {#if visible}
     {#each githubRepos as item, index (item.id)}
-      <a in:fade|global={{ delay: index * 100 }} href={item.url} target="_blank">
-        <article
-          class="border-secondary flex flex-col gap-2 rounded-tr-lg rounded-bl-lg border-2 p-4"
-        >
-          <h3 class="text-primary font-bold">
+      <a
+        in:fade|global={{ delay: index * 100 }}
+        href={item.url}
+        target="_blank"
+        class="bg-secondary hover:outline-primary rounded-xl rounded-tl-none rounded-br-none hover:outline-4 focus-visible:outline-4"
+      >
+        <article class="project flex flex-col gap-2 p-4 text-white">
+          <h3 class="text-primary text-lg font-bold">
             {item.name}
           </h3>
-          <p class="text-sm">{item.description}</p>
-          <div class="flex flex-wrap gap-3">
+          <p>{item.description}</p>
+          <div class="flex flex-wrap gap-4">
             {#each item.languages.nodes as language (language.id)}
               <div class="flex items-center gap-1">
-                <span class="h-2 w-2 rounded-full" style:background={language.color}></span>
+                <span
+                  class="h-3 w-3 rounded-sm rounded-tl-none rounded-br-none"
+                  style:background={language.color}
+                ></span>
                 <span class="text-sm">{language.name}</span>
               </div>
             {/each}
@@ -34,3 +40,9 @@
     {/each}
   {/if}
 </section>
+
+<style>
+  article.project:hover {
+    animation: flicker 50ms 2;
+  }
+</style>

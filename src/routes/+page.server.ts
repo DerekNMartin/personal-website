@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { TmdbMovie } from '$lib/types/tmdb';
 import type { FableBooksResponse } from '$lib/types/fable';
+import type { WeatherResponse } from '$lib/types/weather';
 
 const MOVIES = [
   'Isle of Dogs',
@@ -41,10 +42,21 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
     return result;
   }
 
+  async function fetchWeather() {
+    const response = await fetch('/api/weather');
+    const result: WeatherResponse = await response.json();
+    return result;
+  }
+
   try {
-    const [books, movies, strava] = await Promise.all([fetchBooks(), fetchMovies(), fetchStrava()]);
+    const [books, movies, strava, weather] = await Promise.all([
+      fetchBooks(),
+      fetchMovies(),
+      fetchStrava(),
+      fetchWeather()
+    ]);
     setHeaders({ 'cache-control': 'private, max-age=3600' });
-    return { strava, movies, books };
+    return { strava, movies, books, weather };
   } catch (error) {
     throw new Error(error?.message || 'Page fetch error');
   }

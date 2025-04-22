@@ -44,8 +44,8 @@
 
 <article class={['flex flex-col gap-4', props.class]}>
   <section class="flex w-full justify-between">
-    <p class="text-sm">Toronto {dayNight}</p>
-    <p class="text-sm">GMT-4</p>
+    <p>Toronto {dayNight}</p>
+    <p class="text-sm">[GMT-4]</p>
   </section>
   <section class="grid grid-cols-2 grid-rows-2 items-center">
     {#key timeHours}

@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+:focus-visible {
+  outline: theme(--color-primary) auto 4px;
+}
+
 a.link {
   @apply text-primary hover:bg-primary hover:text-secondary w-fit rounded rounded-tl-none rounded-br-none text-sm underline transition-colors hover:no-underline font-bold;
 
