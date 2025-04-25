@@ -5,8 +5,7 @@ import {
   STRAVA_REFRESH_TOKEN
 } from '$env/static/private';
 import type { RequestHandler } from '@sveltejs/kit';
-import { REDIS_URL } from '$env/static/private';
-import { createClient } from 'redis';
+import redis from '$lib/shared/redis';
 
 export interface TokenResponse {
   token_type: string;
@@ -19,7 +18,6 @@ export interface TokenResponse {
 const REDIS_ACCESS_TOKEN_KEY = 'access_token';
 const REDIS_REFRESH_TOKEN_KEY = 'refresh_token';
 const REDIS_EXPIRE_TOKEN_KEY = 'expires_at';
-const redis = await createClient({ url: REDIS_URL }).connect();
 
 const stravaBaseUrl = new URL('https://www.strava.com/api/v3');
 
@@ -31,7 +29,7 @@ async function createRefreshToken(NEW_REFRESH_TOKEN?: string) {
   requestTokenUrl.searchParams.append('refresh_token', NEW_REFRESH_TOKEN || STRAVA_REFRESH_TOKEN);
   const permissionResponse = await fetch(requestTokenUrl.href, { method: 'POST' });
   const data: TokenResponse = await permissionResponse.json();
-  console.log('Token Refreshed', data);
+  console.log('Strava Token Refreshed');
   return data;
 }
 

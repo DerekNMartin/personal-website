@@ -5,6 +5,7 @@
   import MoviesWidget from '$lib/components/MoviesWidget.svelte';
   import StravaWidget from '$lib/components/StravaWidget.svelte';
   import WeatherWidget from '$lib/components/WeatherWidget.svelte';
+  import MusicWidget from '$lib/components/MusicWidget.svelte';
 
   const { data }: PageProps = $props();
 </script>
@@ -15,6 +16,7 @@
   <MoviesWidget movies={data.movies} class="masonry-item" />
   <StravaWidget strava={data.strava} class="masonry-item" />
   <WeatherWidget weather={data.weather} class="masonry-item" />
+  <MusicWidget music={data.music} class="masonry-item" />
 </div>
 
 <style>
