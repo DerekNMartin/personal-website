@@ -11,6 +11,7 @@
 
   import ControlPanel from '$lib/components/ControlPanel.svelte';
   import Header from '$lib/components/Header.svelte';
+  import { onMount } from 'svelte';
 
   let { children } = $props();
 
@@ -31,6 +32,12 @@
       classList.push('max-h-[calc(100%+3.5rem+2rem)] overflow-hidden');
     return classList;
   });
+
+  let hideInitialAnimation = $state(true);
+  onMount(() => {
+    // Hide off animation on first load
+    setTimeout(() => (hideInitialAnimation = false), 750);
+  });
 </script>
 
 <main class="flex h-full flex-col">
@@ -47,6 +54,7 @@
             'flex h-full w-full flex-col gap-4 overflow-y-auto bg-amber-100 px-4 py-6 sm:gap-8 sm:p-12',
             screenStyle
           ]}
+          class:hide-initial-animation={hideInitialAnimation}
         >
           <Header></Header>
           {#key pageId}
@@ -63,6 +71,10 @@
 
 <style>
   @reference 'main-styles';
+
+  .hide-initial-animation {
+    visibility: hidden;
+  }
 
   .noise-overlay {
     @apply pointer-events-none absolute inset-0 z-50 opacity-10 mix-blend-soft-light;
