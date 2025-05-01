@@ -1,11 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
+  import Widget from './Widget.svelte';
 
   const LOCALE = 'en-CA';
   const TIME_ZONE = 'America/Toronto';
-
-  const props = $props();
 
   let unixTime = $state(Date.now());
   const date = $derived(new Date(unixTime));
@@ -42,11 +41,13 @@
   });
 </script>
 
-<article class={['flex flex-col gap-4', props.class]}>
-  <section class="flex w-full justify-between">
-    <p>Toronto {dayNight}</p>
-    <p class="text-sm">[GMT-4]</p>
-  </section>
+<Widget class="flex flex-col gap-4">
+  {#snippet heading()}
+    <section class="flex w-full justify-between">
+      <p>Toronto {dayNight}</p>
+      <p class="text-sm">[GMT-4]</p>
+    </section>
+  {/snippet}
   <section class="grid grid-cols-2 grid-rows-2 items-center">
     {#key timeHours}
       <p in:fly={{ y: '100%' }} class="thing text-6xl">{timeHours.toString().padStart(2, '0')}</p>
@@ -67,7 +68,7 @@
       ></span>
     </section>
   </section>
-</article>
+</Widget>
 
 <style>
   @reference 'main-styles';

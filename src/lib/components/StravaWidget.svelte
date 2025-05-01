@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { Tween } from 'svelte/motion';
   import { quartOut } from 'svelte/easing';
   import { usePower } from '$lib/shared/power.svelte';
+  import Widget from './Widget.svelte';
 
   const { strava, ...props } = $props();
   const power = usePower();
@@ -48,8 +48,12 @@
   });
 </script>
 
-<article class={['flex flex-col gap-4', props.class]}>
-  Running
+<Widget
+  class={props.class}
+  headingText="Running"
+  link="https://www.strava.com/athletes/136908952"
+  linkText="Strava"
+>
   <section class="grid gap-4 sm:grid-cols-3">
     {#each stats as stat}
       <div class="flex flex-col gap-1">
@@ -57,6 +61,5 @@
         <p class="text-2xl font-bold">{stat.value}</p>
       </div>
     {/each}
-    <a class="link" href="https://www.strava.com/athletes/136908952" target="_blank">Strava</a>
   </section>
-</article>
+</Widget>

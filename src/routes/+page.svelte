@@ -11,12 +11,12 @@
 </script>
 
 <div class="masonry-container">
-  <ClockWidget class="masonry-item" />
-  <BooksWidget books={data.books} class="masonry-item" />
-  <MoviesWidget movies={data.movies} class="masonry-item" />
-  <StravaWidget strava={data.strava} class="masonry-item" />
-  <WeatherWidget weather={data.weather} class="masonry-item" />
-  <MusicWidget music={data.music} class="masonry-item" />
+  <ClockWidget />
+  <BooksWidget books={data.books} />
+  <MoviesWidget movies={data.movies} />
+  <StravaWidget strava={data.strava} />
+  <WeatherWidget weather={data.weather} />
+  <MusicWidget music={data.music} />
 </div>
 
 <style>
@@ -25,9 +25,5 @@
   .masonry-container {
     @apply columns-3 gap-5;
     column-width: 300px;
-  }
-
-  :global(.masonry-item) {
-    @apply bg-secondary mb-5 min-h-28 w-full break-inside-avoid-column rounded-3xl rounded-tl-none rounded-br-none p-6 text-white;
   }
 </style>

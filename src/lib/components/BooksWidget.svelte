@@ -1,10 +1,23 @@
 <script lang="ts">
-  const { books, ...props } = $props();
+  import Widget from './Widget.svelte';
+  import type { FableBooksResponse } from '$lib/types/fable';
+  import type { ClassValue } from 'svelte/elements';
+
+  interface BooksWidgetProps {
+    books: FableBooksResponse;
+    class?: ClassValue;
+  }
+
+  const { books, ...props }: BooksWidgetProps = $props();
 </script>
 
-<article class={['flex flex-col gap-4', props.class]}>
-  Recently Read
-  <div class="carousel flex max-w-full overflow-hidden">
+<Widget
+  class={props.class}
+  headingText="Recently Read"
+  link="https://fable.co/derek-martin-138781558181"
+  linkText="Fable"
+>
+  <div class="carousel relative flex max-w-full overflow-hidden">
     {#each { length: 2 }}
       <div class="group flex gap-2 pr-2">
         {#each books.results as { book }}
@@ -23,8 +36,7 @@
       </div>
     {/each}
   </div>
-  <a class="link" href="https://fable.co/derek-martin-138781558181" target="_blank">Fable</a>
-</article>
+</Widget>
 
 <style>
   @reference 'main-styles';

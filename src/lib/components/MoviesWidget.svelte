@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { TmdbMovie } from '$lib/types/tmdb';
   import type { ClassValue } from 'svelte/elements';
+  import Widget from './Widget.svelte';
 
   interface MoviesWidgetProps {
     movies: TmdbMovie[];
@@ -15,8 +16,12 @@
   }
 </script>
 
-<article class={['flex flex-col gap-4', props?.class]}>
-  Favourite Movies
+<Widget
+  class={props.class}
+  headingText="Favourite Movies"
+  link="https://boxd.it/LLcS"
+  linkText="Letterboxd"
+>
   <div class="grid grid-cols-3 gap-2 md:grid-cols-5">
     {#each movies as movie}
       <article
@@ -30,5 +35,4 @@
       </article>
     {/each}
   </div>
-  <a class="link" href="https://boxd.it/LLcS" target="_blank">Letterboxd</a>
-</article>
+</Widget>

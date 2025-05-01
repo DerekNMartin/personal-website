@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { WeatherResponse } from '$lib/types/weather';
   import type { ClassValue } from 'svelte/elements';
+  import Widget from './Widget.svelte';
 
   interface WeatherWidgetProps {
     weather: WeatherResponse;
@@ -17,7 +18,7 @@
   const tempFahrenheit = $derived(Math.floor((weather.main.temp - 273.15) * 1.8 + 32));
 </script>
 
-<article class={['@container flex flex-col items-center gap-4 sm:flex-row', props.class]}>
+<Widget class="@container items-center sm:flex-row">
   <img src={weatherIcon} alt={weatherType} title={weatherType} class="weather__icon" />
   <div class="flex w-full flex-col gap-2">
     Toronto
@@ -32,15 +33,15 @@
     </div>
     {weatherType}
   </div>
-</article>
+</Widget>
 
 <style>
   .weather__icon {
     filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.5));
-    animation: hover 1.5s ease-in-out infinite alternate;
+    animation: float 1.5s ease-in-out infinite alternate;
   }
 
-  @keyframes hover {
+  @keyframes float {
     0% {
       transform: translateY(0px);
     }

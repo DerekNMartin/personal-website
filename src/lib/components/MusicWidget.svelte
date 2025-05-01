@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { SpotifyCurrentlyPlayingResponse } from '$lib/types/spotify';
   import type { ClassValue } from 'svelte/elements';
+  import Widget from './Widget.svelte';
 
   interface MusicWidgetProps {
     music: SpotifyCurrentlyPlayingResponse | { status: number; error: string };
@@ -19,11 +20,13 @@
   $inspect(music);
 </script>
 
-<article class={['flex flex-col gap-4', props.class]}>
-  <div class="flex items-center justify-between">
-    <p>Playing Now</p>
-    <div class={['loader', isError ? 'invisible' : 'visible']}></div>
-  </div>
+<Widget>
+  {#snippet heading()}
+    <div class="flex items-center justify-between">
+      <p>Playing Now</p>
+      <div class={['loader', isError ? 'invisible' : 'visible']}></div>
+    </div>
+  {/snippet}
   {#if isError}
     <section class="flex items-center gap-4">
       <div class="aspect-square w-32 animate-pulse rounded-full bg-neutral-300"></div>
@@ -45,7 +48,7 @@
       </div>
     </section>
   {/if}
-</article>
+</Widget>
 
 <style>
   .record-spin {
