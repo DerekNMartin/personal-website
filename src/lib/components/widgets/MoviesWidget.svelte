@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { TmdbMovie } from '$lib/types/tmdb';
   import type { ClassValue } from 'svelte/elements';
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
 
-  interface MoviesWidgetProps {
+  interface MoviesWidgetProps
+    extends Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> {
     movies: TmdbMovie[];
     class?: ClassValue;
   }
@@ -21,6 +22,8 @@
   headingText="Favourite Movies"
   link="https://boxd.it/LLcS"
   linkText="Letterboxd"
+  backgroundTransition={props.backgroundTransition}
+  contentTransition={props.contentTransition}
 >
   <div class="grid grid-cols-3 gap-2 md:grid-cols-5">
     {#each movies as movie}

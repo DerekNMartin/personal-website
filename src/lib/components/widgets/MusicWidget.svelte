@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { SpotifyCurrentlyPlayingResponse } from '$lib/types/spotify';
   import type { ClassValue } from 'svelte/elements';
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
 
-  interface MusicWidgetProps {
+  interface MusicWidgetProps
+    extends Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> {
     music: SpotifyCurrentlyPlayingResponse | { status: number; error: string };
     class?: ClassValue;
   }
@@ -16,11 +17,12 @@
   const songTitle = $derived((!isError && music.item?.name) || '');
   const artistName = $derived((!isError && music.item?.artists[0].name) || '');
   const songUrl = $derived((!isError && music.item?.external_urls?.spotify) || '');
-
-  $inspect(music);
 </script>
 
-<Widget>
+<Widget
+  backgroundTransition={props.backgroundTransition}
+  contentTransition={props.contentTransition}
+>
   {#snippet heading()}
     <div class="flex items-center justify-between">
       <p>Playing Now</p>

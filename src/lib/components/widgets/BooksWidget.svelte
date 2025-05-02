@@ -1,9 +1,10 @@
 <script lang="ts">
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
   import type { FableBooksResponse } from '$lib/types/fable';
   import type { ClassValue } from 'svelte/elements';
 
-  interface BooksWidgetProps {
+  interface BooksWidgetProps
+    extends Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> {
     books: FableBooksResponse;
     class?: ClassValue;
   }
@@ -16,6 +17,8 @@
   headingText="Recently Read"
   link="https://fable.co/derek-martin-138781558181"
   linkText="Fable"
+  backgroundTransition={props.backgroundTransition}
+  contentTransition={props.contentTransition}
 >
   <div class="carousel relative flex max-w-full overflow-hidden">
     {#each { length: 2 }}

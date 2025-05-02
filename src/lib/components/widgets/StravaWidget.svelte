@@ -1,10 +1,17 @@
 <script lang="ts">
+  import type { ClassValue } from 'svelte/elements';
   import { Tween } from 'svelte/motion';
   import { quartOut } from 'svelte/easing';
   import { usePower } from '$lib/shared/power.svelte';
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
 
-  const { strava, ...props } = $props();
+  interface StravaWidgetProps
+    extends Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> {
+    strava: any;
+    class?: ClassValue;
+  }
+
+  const { strava, ...props }: StravaWidgetProps = $props();
   const power = usePower();
 
   function interpolateRounded(fromNumber: number, toNumber: number) {
@@ -12,7 +19,7 @@
   }
 
   const tweenOptions = {
-    delay: 600,
+    delay: props.contentTransition?.delay || 1000,
     duration: 1500,
     interpolate: interpolateRounded,
     easing: quartOut
@@ -53,6 +60,8 @@
   headingText="Running"
   link="https://www.strava.com/athletes/136908952"
   linkText="Strava"
+  backgroundTransition={props.backgroundTransition}
+  contentTransition={props.contentTransition}
 >
   <section class="grid gap-4 sm:grid-cols-3">
     {#each stats as stat}

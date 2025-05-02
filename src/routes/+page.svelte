@@ -1,22 +1,62 @@
 <script lang="ts">
   import type { PageProps } from './$types';
-  import ClockWidget from '$lib/components/ClockWidget.svelte';
-  import BooksWidget from '$lib/components/BooksWidget.svelte';
-  import MoviesWidget from '$lib/components/MoviesWidget.svelte';
-  import StravaWidget from '$lib/components/StravaWidget.svelte';
-  import WeatherWidget from '$lib/components/WeatherWidget.svelte';
-  import MusicWidget from '$lib/components/MusicWidget.svelte';
+
+  import ClockWidget from '$lib/components/widgets/ClockWidget.svelte';
+  import BooksWidget, { type BooksWidgetProps } from '$lib/components/widgets/BooksWidget.svelte';
+  import MoviesWidget from '$lib/components/widgets/MoviesWidget.svelte';
+  import StravaWidget from '$lib/components/widgets/StravaWidget.svelte';
+  import WeatherWidget from '$lib/components/widgets/WeatherWidget.svelte';
+  import MusicWidget from '$lib/components/widgets/MusicWidget.svelte';
+
+  import { usePower } from '$lib/shared/power.svelte';
 
   const { data }: PageProps = $props();
+  const power = usePower();
+
+  const widgets = [
+    {
+      name: 'ClockWidget',
+      component: ClockWidget
+    },
+    {
+      name: 'BooksWidget',
+      component: BooksWidget,
+      props: { books: data.books }
+    },
+    {
+      name: 'MoviesWidget',
+      component: MoviesWidget,
+      props: { movies: data.movies }
+    },
+    {
+      name: 'StravaWidget',
+      component: StravaWidget,
+      props: { strava: data.strava }
+    },
+    {
+      name: 'WeatherWidget',
+      component: WeatherWidget,
+      props: { weather: data.weather }
+    },
+    {
+      name: 'MusicWidget',
+      component: MusicWidget,
+      props: { music: data.music }
+    }
+  ];
 </script>
 
 <div class="masonry-container">
-  <ClockWidget />
-  <BooksWidget books={data.books} />
-  <MoviesWidget movies={data.movies} />
-  <StravaWidget strava={data.strava} />
-  <WeatherWidget weather={data.weather} />
-  <MusicWidget music={data.music} />
+  {#each widgets as widget, index (widget.name)}
+    {@const WidgetComponent = widget.component}
+    {#if power.isOn}
+      <WidgetComponent
+        {...widget?.props}
+        backgroundTransition={{ delay: index * 100 + 800 }}
+        contentTransition={{ delay: index * 100 + 1100 }}
+      />
+    {/if}
+  {/each}
 </div>
 
 <style>

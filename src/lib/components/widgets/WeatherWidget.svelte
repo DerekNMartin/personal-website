@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { WeatherResponse } from '$lib/types/weather';
   import type { ClassValue } from 'svelte/elements';
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
 
-  interface WeatherWidgetProps {
+  interface WeatherWidgetProps
+    extends Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> {
     weather: WeatherResponse;
     class?: ClassValue;
   }
@@ -18,7 +19,11 @@
   const tempFahrenheit = $derived(Math.floor((weather.main.temp - 273.15) * 1.8 + 32));
 </script>
 
-<Widget class="@container items-center sm:flex-row">
+<Widget
+  class="@container flex flex-col items-center sm:flex-row"
+  backgroundTransition={props.backgroundTransition}
+  contentTransition={props.contentTransition}
+>
   <img src={weatherIcon} alt={weatherType} title={weatherType} class="weather__icon" />
   <div class="flex w-full flex-col gap-2">
     Toronto

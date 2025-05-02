@@ -1,7 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
-  import Widget from './Widget.svelte';
+  import Widget, { type WidgetProps } from './Widget.svelte';
+
+  const {
+    backgroundTransition,
+    contentTransition
+  }: Pick<WidgetProps, 'backgroundTransition' | 'contentTransition'> = $props();
 
   const LOCALE = 'en-CA';
   const TIME_ZONE = 'America/Toronto';
@@ -41,7 +46,7 @@
   });
 </script>
 
-<Widget class="flex flex-col gap-4">
+<Widget class="flex flex-col gap-4" {backgroundTransition} {contentTransition}>
   {#snippet heading()}
     <section class="flex w-full justify-between">
       <p>Toronto {dayNight}</p>
