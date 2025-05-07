@@ -13,6 +13,11 @@
   const { data }: PageProps = $props();
   const power = usePower();
 
+  const widgetAnimation = {
+    duration: 1300,
+    delay: 800
+  };
+
   const widgets = [
     {
       name: 'ClockWidget',
@@ -52,8 +57,14 @@
     {#if power.isOn}
       <WidgetComponent
         {...widget?.props}
-        backgroundTransition={{ delay: index * 100 + 800 }}
-        contentTransition={{ delay: index * 100 + 1100 }}
+        backgroundTransition={{
+          duration: widgetAnimation.duration,
+          delay: index * 100 + widgetAnimation.delay
+        }}
+        contentTransition={{
+          duration: widgetAnimation.duration,
+          delay: index * 100 + widgetAnimation.duration
+        }}
       />
     {/if}
   {/each}

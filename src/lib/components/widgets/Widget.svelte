@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import type { ClassValue } from 'svelte/elements';
-  import { expoOut, circOut } from 'svelte/easing';
+  import { expoOut, cubicOut } from 'svelte/easing';
 
   export interface WidgetProps {
     link?: string;
@@ -37,7 +37,7 @@
     return {
       delay: contentTransition?.delay || 1400,
       duration: contentTransition?.duration || 300,
-      easing: circOut,
+      easing: cubicOut,
       css: (t: number) => `opacity: ${t}; transform: scale(${t})`
     };
   }
