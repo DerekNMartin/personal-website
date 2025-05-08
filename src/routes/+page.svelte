@@ -2,7 +2,7 @@
   import type { PageProps } from './$types';
 
   import ClockWidget from '$lib/components/widgets/ClockWidget.svelte';
-  import BooksWidget, { type BooksWidgetProps } from '$lib/components/widgets/BooksWidget.svelte';
+  import BooksWidget from '$lib/components/widgets/BooksWidget.svelte';
   import MoviesWidget from '$lib/components/widgets/MoviesWidget.svelte';
   import StravaWidget from '$lib/components/widgets/StravaWidget.svelte';
   import WeatherWidget from '$lib/components/widgets/WeatherWidget.svelte';
@@ -14,8 +14,8 @@
   const power = usePower();
 
   const widgetAnimation = {
-    duration: 1300,
-    delay: 800
+    duration: 800,
+    delay: 900
   };
 
   const widgets = [
@@ -62,8 +62,7 @@
           delay: index * 100 + widgetAnimation.delay
         }}
         contentTransition={{
-          duration: widgetAnimation.duration,
-          delay: index * 100 + widgetAnimation.duration
+          delay: index * 100 + (widgetAnimation.duration + 200)
         }}
       />
     {/if}

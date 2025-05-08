@@ -24,7 +24,12 @@
   backgroundTransition={props.backgroundTransition}
   contentTransition={props.contentTransition}
 >
-  <img src={weatherIcon} alt={weatherType} title={weatherType} class="weather__icon" />
+  <img
+    src={weatherIcon}
+    alt={weatherType}
+    title={weatherType}
+    class="weather__icon aspect-square min-w-48"
+  />
   <div class="flex w-full flex-col gap-2">
     Toronto
     <div class="flex w-64 flex-col gap-4 @min-sm:flex-row">

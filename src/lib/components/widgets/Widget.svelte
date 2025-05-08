@@ -38,7 +38,10 @@
       delay: contentTransition?.delay || 1400,
       duration: contentTransition?.duration || 300,
       easing: cubicOut,
-      css: (t: number) => `opacity: ${t}; transform: scale(${t})`
+      css: (t: number) => 'opacity: 0',
+      tick: (t: number) => {
+        if (t >= 1) node.classList.add('content');
+      }
     };
   }
 </script>
@@ -61,3 +64,9 @@
     {/if}
   </div>
 </article>
+
+<style>
+  .content {
+    animation: flicker 50ms 3;
+  }
+</style>
