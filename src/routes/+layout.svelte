@@ -2,6 +2,7 @@
   import '../app.css';
 
   import { injectAnalytics } from '@vercel/analytics/sveltekit';
+  import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
   import { dev } from '$app/environment';
   import { page } from '$app/state';
   import { fade, blur } from 'svelte/transition';
@@ -15,7 +16,9 @@
 
   let { children } = $props();
 
+  // Vercel Insights & Analytics
   injectAnalytics({ mode: dev ? 'development' : 'production' });
+  injectSpeedInsights();
 
   const power = usePower();
   const screenStyle = $derived(power.isOn ? 'on' : 'off');

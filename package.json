@@ -16,7 +16,6 @@
 	"devDependencies": {
 		"@ai-sdk/google": "^1.2.11",
 		"@ai-sdk/svelte": "^2.1.9",
-		"@ai-sdk/xai": "^1.2.13",
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@sveltejs/adapter-vercel": "^5.5.2",
@@ -44,8 +43,8 @@
 		]
 	},
 	"dependencies": {
-		"@huggingface/inference": "^3.6.2",
 		"@vercel/analytics": "^1.5.0",
+		"@vercel/speed-insights": "^1.2.0",
 		"redis": "^4.7.0"
 	}
 }
