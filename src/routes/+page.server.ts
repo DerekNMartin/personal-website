@@ -4,6 +4,8 @@ import type { FableBooksResponse } from '$lib/types/fable';
 import type { WeatherResponse } from '$lib/types/weather';
 import type { SpotifyCurrentlyPlayingResponse } from '$lib/types/spotify';
 
+export const prerender = true;
+
 const MOVIES = [
   'Isle of Dogs',
   'Her',
