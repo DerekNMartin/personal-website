@@ -14,7 +14,7 @@ const mockedModel = new MockLanguageModelV1({
       chunks: [
         { type: 'text-delta', textDelta: 'Hello' },
         { type: 'text-delta', textDelta: ', ' },
-        { type: 'text-delta', textDelta: `world!` },
+        { type: 'text-delta', textDelta: `world! (Dev Response)` },
         {
           type: 'finish',
           finishReason: 'stop',
@@ -40,7 +40,7 @@ export async function POST({ request }) {
   const { messages } = await request.json();
 
   const result = streamText({
-    model: dev ? mockedModel : aiModel('gemini-2.0-flash-lite'),
+    model: dev ? mockedModel : aiModel('gemini-2.5-flash-lite'),
     system: SystemContext,
     messages
   });

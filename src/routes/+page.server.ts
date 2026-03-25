@@ -12,14 +12,14 @@ const MOVIES = [
   'Memento',
   'The Dark Knight',
   'Good Will Hunting',
-  'Ex Machina - 2015',
+  'Ex Machina',
   'Rear Window',
   'Mad Max: Fury Road',
   'Arrival',
   'The Prestige',
   'Drive',
   'Shutter Island',
-  'Parasite - 2019'
+  'Parasite'
 ];
 
 export const load: PageServerLoad = async ({ fetch, setHeaders }) => {

@@ -2,7 +2,6 @@
   import { scale, fade } from 'svelte/transition';
   import { expoOut } from 'svelte/easing';
   import type { Chat, UIMessage } from '@ai-sdk/svelte';
-
   const {
     message,
     status,
@@ -29,7 +28,7 @@
     <div in:fade={{ duration: 200 }}>
       {#each message.parts as part, partIndex (partIndex)}
         {#if part.type === 'text'}
-          <div>{part.text}</div>
+          <span>{part.text}</span>
         {/if}
       {/each}
     </div>

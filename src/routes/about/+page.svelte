@@ -2,8 +2,8 @@
   import { Chat } from '@ai-sdk/svelte';
   import { onMount, tick } from 'svelte';
   import { useScroll } from '$lib/shared/scroll.svelte';
-  import ChatForm from '$lib/components/ChatForm.svelte';
-  import ChatMessage from '$lib/components/ChatMessage.svelte';
+  import ChatForm from '$lib/components/chat/ChatForm.svelte';
+  import ChatMessage from '$lib/components/chat/ChatMessage.svelte';
 
   const errorMessage = `Sorry, the bot is shy today. 🫣 If you have any questions for Derek, feel free to email Derek at derek.n.martin@gmail.com!`;
 
