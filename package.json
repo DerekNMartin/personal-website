@@ -19,7 +19,7 @@
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@sveltejs/adapter-vercel": "^5.5.2",
-		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/kit": "^2.63.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/vite": "^4.0.0",
 		"ai": "^4.3.8",
@@ -43,6 +43,9 @@
 		]
 	},
 	"dependencies": {
+		"@langfuse/otel": "^5.4.1",
+		"@langfuse/tracing": "^5.4.1",
+		"@opentelemetry/sdk-node": "^0.218.0",
 		"@vercel/analytics": "^1.5.0",
 		"@vercel/speed-insights": "^1.2.0",
 		"redis": "^4.7.0"

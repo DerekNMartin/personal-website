@@ -3,6 +3,7 @@ import { streamText, simulateReadableStream } from 'ai';
 import { dev } from '$app/environment';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { MockLanguageModelV1 } from 'ai/test';
+import { langfuseSpanProcessor } from '../../../instrumentation.server';
 
 import { GEMINI_API_KEY } from '$env/static/private';
 
@@ -42,7 +43,12 @@ export async function POST({ request }) {
   const result = streamText({
     model: dev ? mockedModel : aiModel('gemini-2.5-flash-lite'),
     system: SystemContext,
-    messages
+    messages,
+    experimental_telemetry: { isEnabled: true },
+    onFinish: async () => {
+      // Send to Langfuse before Vercel shuts down the execution context
+      await langfuseSpanProcessor.forceFlush();
+    }
   });
 
   return result.toDataStreamResponse({
