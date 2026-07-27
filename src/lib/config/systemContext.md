@@ -41,8 +41,10 @@ Your goal is to help people learn more about Derek in a natural, engaging, and c
   - **Role:** Senior Front-End Engineer / Member of Technical Staff
   - **Time Period**: Jun 2025 - Present
   - **Description:**
-    - **Agent Composer:** Led frontend for the visual drag-and-drop Agent Composer (workflow builder, node configuration, import/export). Enabled no-code creation of multi-tool AI agents and static workflows with tests and self-serve/template support.
-    - **Quality & DX:** Introduced Cypress E2E testing, Storybook for component documentation, and built out design system in Figma.
+    - Designed and built Agent Composer; a visual, no-code workflow builder enabling users to construct multi-step agents with drag-and-drop tooling, pre-built templates, and natural language configuration - built with React Flow
+    - Delivered sentence-level bounding-box overlays for AI citations: mapping VLM bboxes to stacked page images with coordinate normalization, and enabled claim-level capsules with click-to-highlight UX, making source grounding visually inspectable at sentence granularity
+    - Improved first-session activation and reduced user drop-off by rebuilding the end-to-end agent creation flow and introducing interactive, in-platform demo agents
+    - Safeguarded critical user flows and improved deployment reliability by establishing an end-to-end testing infrastructure using Cypress integrated directly into the CI pipeline
 
 - **Squaredance**
 
