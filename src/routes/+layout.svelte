@@ -109,7 +109,7 @@
   .crt::after {
     @apply pointer-events-none absolute top-0 left-0 h-full w-full;
     content: '';
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/86186/crt.png');
+    background-image: url('$lib/assets/crt.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
