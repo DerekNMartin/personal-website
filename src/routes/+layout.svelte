@@ -109,7 +109,7 @@
   .crt::after {
     @apply pointer-events-none absolute top-0 left-0 h-full w-full;
     content: '';
-    background-image: url('$lib/assets/crt.png');
+    background-image: url('/crt.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
